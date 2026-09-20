@@ -22,7 +22,7 @@ Open Chat JS — a lightweight client library for interacting with the Open-Chat
 - **Design**: Promise-based, tiny surface area (auth + chat methods), no runtime frameworks required.
 
 **Installation**
-- **From npm** (when published): `npm install open-chat-js`
+- **From npm** (when published): `npm install open-chat-module` or `npm install github:proislampro/open-chat-module`
 - **From local package**: copy the module folder into your project or use `npm pack` then `npm install ./open-chat-js-0.1.0.tgz`.
 
 **Quick Start**
