@@ -1,5 +1,5 @@
 import { login, register, getTokenData } from "./library/auth.js";
-import { createChat, sendMessage, listMessages } from "./library/chat.js";
+import { createChat, sendMessage, listMessages, updateMessage, getMessage, deleteMessage } from "./library/chat.js";
 
 export class OpenChat {
   constructor() {
@@ -67,6 +67,9 @@ export class OpenChat {
       messages : {
           send: sendMessage.bind(this),
           list: listMessages.bind(this),
+          update: updateMessage.bind(this),
+          delete: deleteMessage.bind(this),
+          get: getMessage.bind(this),
         },
     }
   }

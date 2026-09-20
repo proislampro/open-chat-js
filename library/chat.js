@@ -128,3 +128,124 @@ export async function listMessages(chat, limit = 50, offset = 0) {
 
     return responseData;
 }
+
+export async function getMessage(chat, messageId) {
+    if (!this.AuthToken) {
+        throw new Error("Auth token is not set. Please login first.");
+    }
+
+    if (!this.ApiUrl || typeof this.ApiUrl !== "string") {
+        throw new Error("API URL is not valid.");
+    }
+
+    if (!messageId) {
+        throw new Error("Message ID is required.");
+    }
+
+    const response = await fetch(`${this.ApiUrl}/api/chat/messages/get`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            chat,
+            messageId,
+            token: this.AuthToken,
+        }),
+    });
+
+    const responseData = await response.json().catch(() => ({}));
+
+    if (!response.ok) {
+        throw new Error(responseData.message || responseData.error || "Request Failed");
+    }
+
+    if (responseData.error) {
+        throw new Error(responseData.error);
+    }
+
+    return responseData;
+}
+
+export async function updateMessage(chat, messageId, newMessage) {
+    if (!this.AuthToken) {
+        throw new Error("Auth token is not set. Please login first.");
+    }
+
+    if (!this.ApiUrl || typeof this.ApiUrl !== "string") {
+        throw new Error("API URL is not valid.");
+    }
+
+    if (!messageId) {
+        throw new Error("Message ID is required.");
+    }
+
+    if (newMessage === undefined || newMessage === null) {
+        throw new Error("New message content is required and must be valid JSON.");
+    }
+
+    const messagePayload = typeof newMessage === "object" ? newMessage : String(newMessage);
+
+    const response = await fetch(`${this.ApiUrl}/api/chat/messages/update`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            chat,
+            messageId,
+            newMessage: messagePayload,
+            token: this.AuthToken,
+        }),
+    });
+
+    const responseData = await response.json().catch(() => ({}));
+
+    if (!response.ok) {
+        throw new Error(responseData.message || responseData.error || "Request Failed");
+    }
+
+    if (responseData.error) {
+        throw new Error(responseData.error);
+    }
+
+    return responseData;
+}
+
+export async function deleteMessage(chat, messageId) {
+    if (!this.AuthToken) {
+        throw new Error("Auth token is not set. Please login first.");
+    }
+
+    if (!this.ApiUrl || typeof this.ApiUrl !== "string") {
+        throw new Error("API URL is not valid.");
+    }
+
+    if (!messageId) {
+        throw new Error("Message ID is required.");
+    }
+
+    const response = await fetch(`${this.ApiUrl}/api/chat/messages/delete`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            chat,
+            messageId,
+            token: this.AuthToken,
+        }),
+    });
+
+    const responseData = await response.json().catch(() => ({}));
+
+    if (!response.ok) {
+        throw new Error(responseData.message || responseData.error || "Request Failed");
+    }
+
+    if (responseData.error) {
+        throw new Error(responseData.error);
+    }
+
+    return responseData;
+}
