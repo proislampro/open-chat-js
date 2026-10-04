@@ -1,0 +1,10 @@
+{
+  "name": "open-chat-module",
+  "version": "0.1.0",
+  "description": "Open Chat client library",
+  "type": "module",
+  "main": "./index.js",
+  "exports": {
+    ".": "./index.js"
+  }
+}
