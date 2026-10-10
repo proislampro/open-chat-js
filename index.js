@@ -70,6 +70,24 @@ export class OpenChat {
         },
     }
   }
+
+  get users() {
+    return {
+      get: () => {
+        return {
+          id: getUserById.bind(this),
+          details: getUserDetails.bind(this),
+          idcurrent: getCurrentUser.bind(this),
+          detailscurrent: getCurrentUserDetails.bind(this)
+        };
+      },
+      set: () => {
+        return {
+          details: setUserDetails.bind(this),
+        };
+      }
+    }
+  }
 }
 
 
