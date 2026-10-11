@@ -65,9 +65,10 @@ export class OpenChat {
     return {
       create: createChat.bind(this),
       messages : {
-          send: sendMessage.bind(this),
-          list: listMessages.bind(this),
-        },
+        send: sendMessage.bind(this),
+        list: listMessages.bind(this),
+      },
+      list: listChats.bind(this),
     }
   }
 
