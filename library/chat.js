@@ -213,15 +213,15 @@ export async function getChat(chat) {
         throw new Error("API URL is not valid.");
     }
 
-    const response = await fetch(`${this.ApiUrl}/api/chat/get`, {
+    const url = new URL(`${this.ApiUrl}/api/chat/get`);
+    url.searchParams.set("token", this.AuthToken);
+    url.searchParams.set("chatid", String(chat));
+
+    const response = await fetch(url.toString(), {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-            chat,
-            token: this.AuthToken,
-        }),
     });
 
     const responseData = await response.json().catch(() => ({}));
@@ -246,17 +246,16 @@ export async function listChats(limit = 50, offset = 0) {
         throw new Error("API URL is not valid.");
     }
 
-    const response = await fetch(`${this.ApiUrl}/api/chat/list`, {
+    const url = new URL(`${this.ApiUrl}/api/chat/list`);
+    url.searchParams.set("token", this.AuthToken);
+    if (typeof limit !== "undefined") url.searchParams.set("limit", String(limit));
+    if (typeof offset !== "undefined") url.searchParams.set("fromChatId", String(offset));
+
+    const response = await fetch(url.toString(), {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-            token: this.AuthToken,
-            limit,
-            fromChatId: offset,
-            fromDate: null,
-        }),
     });
 
     const responseData = await response.json().catch(() => ({}));
